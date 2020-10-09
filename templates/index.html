@@ -14,7 +14,7 @@
 
         <!-- Script to handle socket.io -->
         <script>
-            var socket;            
+            var socket;
             $(document).ready(function() {
                 // The http vs. https is important. Use http for localhost!
                 socket = io.connect('http://' + document.domain + ':' + location.port);
@@ -22,22 +22,23 @@
                 // Button was clicked
                 document.getElementById("send_button").onclick = function() {
                     // Get the text value
-                    var text = document.getElementById("textfield_input").value;
+                    // var text = document.getElementById("textfield_input").value;
+                    var text = "Server please start sending your shit";
 
                     // Update the chat window
-                    document.getElementById("chat").innerHTML += "You: " + text + "\n\n";                    
-                    
+                    // document.getElementById("chat").innerHTML += "You: " + text + "\n\n";
+
                     // Emit a message to the 'send_message' socket
                     socket.emit('send_message', {'text':text});
 
                     // Set the textfield input to empty
-                    document.getElementById("textfield_input").value = "";
+                    // document.getElementById("textfield_input").value = "";
                 }
 
                 // Message recieved from server
                 socket.on('message_from_server', function(data) {
                     var text = data['text'];
-                    document.getElementById("chat").innerHTML += "Server: " + text + "\n\n";   
+                    document.getElementById("chat").innerHTML += "Server: " + text + "\n\n";
                 });
             });
         </script>
@@ -45,13 +46,11 @@
 
 <body>
     <div style="margin: 25px; display: flex; flex-direction: column;">
-        <h1 class="title">Hello {{username}}.</h1>
-        <p>Welcome to the flask quick start example.</p>                        
-        <textarea id="chat" style="width: 500px; height: 250px; font-size: 18px; font-family: monospace; margin-top: 10px;"></textarea>                 
+        <h1 class="title">Hello World!</h1>
+        <textarea id="chat" style="width: 500px; height: 250px; font-size: 18px; font-family: monospace; margin-top: 10px;"></textarea>
         <div style="display: flex; flex-direction: row;">
-            <input type="text" id="textfield_input" style="height: 30px; width: 400px; margin-top: 5px; margin-right: 10px;" class="textfield"> 
-            <button id="send_button" class="button is-primary" style="margin-top: 5px; width: 90px; height: 30px;">Send</button>
+            <button id="send_button" class="button is-primary" style="margin-top: 5px; width: 90px; height: 30px;">Receive</button>
         </div>
-    </div>        
+    </div>
 </body>
 </html>
